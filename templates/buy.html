@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Buy
+{% endblock %}
+
+{% block main %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js">  
+</script>  
+
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js">  
+</script>  
+
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css"
+      rel="stylesheet" type="text/css" />  
+<form action="/buy" method="post">
+    <div class="form-group">
+        <input autocomplete="off" autofocus class="form-control" name="symbol" placeholder="Symbol" type="text" id="quotes">
+    </div>
+    <div class="form-group">
+        <input autocomplete="off" autofocus input type="number" class="form-control"
+                                                                min="1" max="10000000000" step="1" name="shares" placeholder="Shares" type="text">
+    </div>
+    <button class="btn btn-primary" type="submit">Buy</button>
+</form>
+<script>
+    $( function() {
+            var availableQuotes = [
+                    {% for quote in quotes %}
+                    "{{quote}}",
+                    {% endfor %}
+                ];
+            $( "#quotes" ).autocomplete({
+                    source: availableQuotes
+                });
+        } );
+</script>
+{% endblock %}
